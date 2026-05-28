@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2FAS Vault</title>
+
+  <!-- Poppins (Falcon design system requires it exclusively) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Pure-JS OTPAuth (no Web Crypto). Loaded as a global; src/otp-engine.js
+       wraps it for browser use via window.OTPEngine. -->
+  <script src="otpauth.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ============== SIDEBAR ============== -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon" aria-hidden="true">
+          <!-- Shield icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="sidebar-logo-text">2FAS Vault</div>
+      </div>
+
+      <div class="sidebar-section-label">Main Menu</div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <a class="sidebar-item" href="#dashboard" data-route="dashboard">
+          <svg class="sidebar-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a class="sidebar-item" href="#services" data-route="services">
+          <svg class="sidebar-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Services</span>
+        </a>
+        <a class="sidebar-item" href="#backup" data-route="backup">
+          <svg class="sidebar-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Backup / Import</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Vault status</div>
+          <div id="vault-status">Connecting…</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============== MAIN COLUMN ============== -->
+    <div class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="search-wrap">
+          <div class="topbar-search">
+            <svg class="topbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input id="topbar-search" type="text" placeholder="Search OTP by label, email, or service…" />
+          </div>
+          <div id="search-results" class="search-results" style="display:none"></div>
+        </div>
+
+        <div class="topbar-clock">
+          <svg class="countdown-ring" viewBox="0 0 36 36">
+            <circle class="bg" cx="18" cy="18" r="14"></circle>
+            <circle id="countdown-fg" class="fg"
+                    cx="18" cy="18" r="14"
+                    stroke-dasharray="87.96" stroke-dashoffset="0"
+                    transform="rotate(-90 18 18)"></circle>
+          </svg>
+          <span id="topbar-time">--:--:--</span>
+        </div>
+
+        <button class="topbar-key-btn" id="api-key-btn" title="Set API key">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+          </svg>
+          <span id="api-key-label">Set API key</span>
+        </button>
+      </header>
+
+      <!-- View slot -->
+      <main class="content" id="content"></main>
+    </div>
+  </div>
+
+  <!-- Toast stack -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Modal slot -->
+  <div id="modal-slot"></div>
+
+  <!-- App logic -->
+  <script src="app.js"></script>
+</body>
+</html>
