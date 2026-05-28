@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 3,
+  "appVersionCode": 5000000,
+  "appVersionName": "5.0.0",
+  "appOrigin": "android",
+
+  "groups": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "Work",
+      "isEncrypted": false
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "name": "Personal",
+      "isEncrypted": false
+    }
+  ],
+
+  "services": [
+    {
+      "name": "Google",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "updatedAt": 1708958115316,
+      "groupId": "22222222-2222-2222-2222-222222222222",
+      "otp": {
+        "label": "bob@gmail.com",
+        "account": "bob@gmail.com",
+        "issuer": "Google",
+        "digits": 6,
+        "period": 30,
+        "algorithm": "SHA1",
+        "tokenType": "TOTP",
+        "source": "Link",
+        "link": "otpauth://totp/bob%40gmail.com?secret=JBSWY3DPEHPK3PXP&issuer=Google&digits=6&period=30&algorithm=SHA1"
+      },
+      "order": {
+        "position": 0
+      },
+      "icon": {
+        "selected": "IconCollection",
+        "label": {
+          "text": "GO",
+          "backgroundColor": "LightBlue"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    },
+
+    {
+      "name": "GitHub",
+      "secret": "MFRHEYLDMFSGCYTSMEYDAMBR",
+      "updatedAt": 1708958115348,
+      "groupId": "11111111-1111-1111-1111-111111111111",
+      "otp": {
+        "label": "bob@company.com",
+        "account": "bob@company.com",
+        "issuer": "GitHub",
+        "digits": 6,
+        "period": 30,
+        "algorithm": "SHA256",
+        "tokenType": "TOTP",
+        "source": "QRCode",
+        "link": "otpauth://totp/bob%40company.com?secret=MFRHEYLDMFSGCYTSMEYDAMBR&issuer=GitHub&digits=6&period=30&algorithm=SHA256"
+      },
+      "order": {
+        "position": 1
+      },
+      "icon": {
+        "selected": "Label",
+        "label": {
+          "text": "GH",
+          "backgroundColor": "Green"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    },
+
+    {
+      "name": "AWS",
+      "secret": "7ELGJSGXNCCTV3O6LKJWYFV2RA",
+      "updatedAt": 1708958115376,
+      "groupId": "11111111-1111-1111-1111-111111111111",
+      "otp": {
+        "label": "admin@company.com",
+        "account": "admin@company.com",
+        "issuer": "Amazon Web Services",
+        "digits": 8,
+        "period": 60,
+        "algorithm": "SHA512",
+        "tokenType": "TOTP",
+        "source": "Manual",
+        "link": "otpauth://totp/admin%40company.com?secret=7ELGJSGXNCCTV3O6LKJWYFV2RA&issuer=Amazon%20Web%20Services&digits=8&period=60&algorithm=SHA512"
+      },
+      "order": {
+        "position": 2
+      },
+      "icon": {
+        "selected": "Label",
+        "label": {
+          "text": "AW",
+          "backgroundColor": "Orange"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    },
+
+    {
+      "name": "Steam",
+      "secret": "JRZCL47CMXVOQMNPZR2F7J4RGI",
+      "updatedAt": 1708958115391,
+      "groupId": "22222222-2222-2222-2222-222222222222",
+      "otp": {
+        "label": "my_steam_username",
+        "account": "my_steam_username",
+        "issuer": "Steam",
+        "digits": 5,
+        "period": 30,
+        "algorithm": "SHA1",
+        "tokenType": "STEAM",
+        "source": "Link",
+        "link": "otpauth://totp/my_steam_username?secret=JRZCL47CMXVOQMNPZR2F7J4RGI&issuer=Steam&digits=5&period=30&algorithm=SHA1"
+      },
+      "order": {
+        "position": 3
+      },
+      "icon": {
+        "selected": "Label",
+        "label": {
+          "text": "ST",
+          "backgroundColor": "Brown"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    },
+
+    {
+      "name": "Cloudflare",
+      "secret": "KUVJJOM753IHTNDSZVCNKL7GII",
+      "updatedAt": 1708958401763,
+      "groupId": "11111111-1111-1111-1111-111111111111",
+      "otp": {
+        "label": "bob@company.com",
+        "account": "bob@company.com",
+        "issuer": "Cloudflare",
+        "digits": 8,
+        "algorithm": "SHA256",
+        "counter": 10,
+        "tokenType": "HOTP",
+        "source": "Link",
+        "link": "otpauth://hotp/bob%40company.com?secret=KUVJJOM753IHTNDSZVCNKL7GII&issuer=Cloudflare&digits=8&counter=10&algorithm=SHA256"
+      },
+      "order": {
+        "position": 4
+      },
+      "icon": {
+        "selected": "Label",
+        "label": {
+          "text": "CF",
+          "backgroundColor": "Orange"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    },
+
+    {
+      "name": "Facebook",
+      "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "updatedAt": 1708958401900,
+      "groupId": null,
+      "otp": {
+        "label": "bob",
+        "account": "bob",
+        "issuer": "Facebook",
+        "digits": 6,
+        "period": 30,
+        "algorithm": "SHA1",
+        "tokenType": "TOTP",
+        "source": "Manual",
+        "link": null
+      },
+      "order": {
+        "position": 5
+      },
+      "icon": {
+        "selected": "Label",
+        "label": {
+          "text": "FB",
+          "backgroundColor": "Navy"
+        },
+        "iconCollection": {
+          "id": "a5b3fb65-4ec5-43e6-8ec1-49e24ca9e7ad"
+        }
+      }
+    }
+  ]
+}
